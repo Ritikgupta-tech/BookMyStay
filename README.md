@@ -75,4 +75,26 @@ cd bookmystay
 
 npm install
 
+NODE_ENV=development
+PORT=8080
+MONGO_URL=your_mongodb_connection_string
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_KEY=your_api_key
+CLOUDINARY_SECRET=your_api_secret
+
+SESSION_SECRET=your_session_secret
+MAPBOX_TOKEN=your_mapbox_token
+
+npm start
+
+npm install
+
+node app.js
+
+
+---
+
+👍
+
 ## 📁 Project Structure
