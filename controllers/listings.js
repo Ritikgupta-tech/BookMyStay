@@ -2,26 +2,31 @@ const Listing = require("../models/listing");
 
 module.exports.index = async (req, res) => {
 
-  const { search } = req.query;
+    const { search, category } = req.query;
 
-  let allListings;
+    let filter = {};
 
-  if (search) {
-    allListings = await Listing.find({
-      $or: [
-        { title: { $regex: search, $options: "i" } },
-        { location: { $regex: search, $options: "i" } },
-        { country: { $regex: search, $options: "i" } },
-      ],
+    // Search Filter
+    if (search && search.trim() !== "") {
+        filter.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } },
+            { country: { $regex: search, $options: "i" } }
+        ];
+    }
+
+    // Category Filter
+    if (category && category !== "All") {
+        filter.category = category;
+    }
+
+    const allListings = await Listing.find(filter);
+
+    res.render("listings/index", {
+        allListings,
+        search,
+        category,
     });
-  } else {
-    allListings = await Listing.find({});
-  }
-
-  res.render("listings/index.ejs", {
-    allListings,
-    search,
-  });
 };
 
   module.exports.renderNewForm=(req, res) => {
